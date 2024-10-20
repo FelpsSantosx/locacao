@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Cliente {
 
@@ -30,38 +28,42 @@ public class Cliente {
 
     public Cliente() {}
 
-    public String setNome(String nome){
-        this.nome = nome;
-        return nome;
-    }
-
     public String getNome(){
-        return nome;
+        var cliente = clientes.get(id);
+        return "Nome: " + cliente.nome;
     }
 
-    public String getCnh() {
-        return cnh;
-    }
+//    public String pegueDados() {
+//        String dados = "";
+//        for (Cliente cliente : clientes) {
+//            dados += "Nome: " + cliente.nome + "\n" +
+//                    "CNH: " + cliente.cnh + "\n" +
+//                    "Idade: " + cliente.idade + "\n" +
+//                    "Endereço: " + cliente.endereco + "\n" +
+//                    "Telefone: " + cliente.telefone + "\n\n";
+//        }
+//        return dados;
+//    }
 
-    public Optional<Cliente> pinto(int id) {
+    public Optional<Cliente> getClient(int id) {
         return clientes.stream()
                 .filter(cliente -> cliente.id == id)
                 .findFirst();
     }
 
-    public String pegueDados(){
-        String dados = "";
-        for (int i = 0; i < clientes.size(); i++){
-            dados += "Nome: " + clientes.get(i).nome + "\n" +
-                    "CNH: " + clientes.get(i).cnh + "\n" +
-                    "Idade: " + clientes.get(i).idade + "\n" +
-                    "Endereço: " + clientes.get(i).endereco + "\n" +
-                    "Telefone: " + clientes.get(i).telefone + "\n" + "\n";
+    public String getClientInfo(int id) {
+        var clienteOptional = getClient(id);
+        if (clienteOptional.isPresent()) {
+            Cliente cliente = clienteOptional.get();
+            return "Nome: " + cliente.nome + "\n" +
+                    "CNH: " + cliente.cnh + "\n" +
+                    "Idade: " + cliente.idade + "\n" +
+                    "Endereço: " + cliente.endereco + "\n" +
+                    "Telefone: " + cliente.telefone + "\n";
+        } else {
+            return "Cliente não encontrado.";
         }
-        return dados;
     }
-
-
 
 
 
