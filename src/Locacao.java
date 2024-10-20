@@ -1,8 +1,8 @@
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 public class Locacao {
 
+    public Veiculo veiculo;
     public int id;
     public String cnhCliente;
     public String placaVeiculo;
@@ -26,12 +26,13 @@ public class Locacao {
         locacoes.add(locacao);
     }
 
-    public Locacao( int id, String cnhCliente, String placaVeiculo, String data, int diasLocados) {
+    public Locacao( int id, String cnhCliente, String placaVeiculo, String data, int diasLocados, Veiculo veiculo) {
         this.id = id;
         this.cnhCliente = cnhCliente;
         this.placaVeiculo = placaVeiculo;
         this.data = data;
         this.diasLocados = diasLocados;
+        this.veiculo = veiculo;
     }
 
 
@@ -95,7 +96,36 @@ public class Locacao {
         } else {
             return "não encontrado";
         }
-
     }
+
+
+    public String veiculoMaisLocado() {
+        Map<String, Integer> contagemVeiculos = new HashMap<>();
+
+        for (Locacao locacao : locacoes) {
+
+            if (locacao.veiculo != null) {
+                Optional<Veiculo> modelo = locacao.veiculo.getVeiculo(id);
+
+                if (modelo.isPresent()) {
+                    Veiculo veiculo = modelo.get();
+                    String nomeVeiculo = veiculo.getModelo();
+                    contagemVeiculos.put(nomeVeiculo, contagemVeiculos.getOrDefault(nomeVeiculo, 0) + 1);
+                }
+            }
+        }
+
+        String veiculoMaisAlugado = "";
+        int maiorQuantidade = 0;
+        for (Map.Entry<String, Integer> entry : contagemVeiculos.entrySet()) {
+            if (entry.getValue() > maiorQuantidade) {
+                maiorQuantidade = entry.getValue();
+                veiculoMaisAlugado = entry.getKey();
+            }
+        }
+
+        return "Veículo mais alugado: " + veiculoMaisAlugado + " (Alugado " + maiorQuantidade + " vezes)";
+    }
+
 }
 

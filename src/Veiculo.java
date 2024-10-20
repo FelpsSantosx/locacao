@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class Veiculo {
@@ -34,6 +36,8 @@ public class Veiculo {
     }
 
     public Veiculo (){}
+
+
 
 //    public String pegueDados(){
 //        String dados = "";
@@ -81,15 +85,6 @@ public class Veiculo {
         }
     }
 
-//    FINALIZALO!!!
-
-//    public String veiculoMaisLocado() {
-//        String veiculoMaisAlugado = "";
-//        int maiorQuantidade = 0;
-//        for (int i = 0; i < veiculos.size(); i++ ) {
-//            if (veiculos)
-//        }
-//    }
 
   }
 
